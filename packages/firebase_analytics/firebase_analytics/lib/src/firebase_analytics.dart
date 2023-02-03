@@ -741,6 +741,10 @@ class FirebaseAnalytics extends FirebasePluginPlatform {
     double? shipping,
     String? transactionId,
     String? affiliation,
+    String? storeId,
+    String? storeName,
+    String? paymentType,
+    String? diningMode,
     AnalyticsCallOptions? callOptions,
   }) {
     _requireValueAndCurrencyTogether(value, currency);
@@ -756,6 +760,10 @@ class FirebaseAnalytics extends FirebasePluginPlatform {
         _SHIPPING: shipping,
         _TRANSACTION_ID: transactionId,
         _AFFILIATION: affiliation,
+        _STORE_ID: storeId,
+        _STORE_NAME: storeName,
+        _PAYMENT_TYPE: paymentType,
+        _DINING_MODE: diningMode,
       }),
       callOptions: callOptions,
     );
@@ -1160,6 +1168,22 @@ class FirebaseAnalytics extends FirebasePluginPlatform {
     );
   }
 
+  /// Logs account_logged_out event.
+  ///
+  /// This event signifies that a user was logged out.
+  ///
+  Future<void> logAccountLoggedOut({
+    String? eventCategory,
+  }) {
+    return logEvent(
+      name: 'account_logged_out',
+      parameters: filterOutNulls(<String, Object?>{
+        _EVENT_CATEGORY: eventCategory,
+      }),
+    );
+  }
+
+
   /// Sets the duration of inactivity that terminates the current session.
   ///
   /// The default value is 1800000 milliseconds (30 minutes).
@@ -1337,6 +1361,15 @@ const String _CREATIVE_SLOT = 'creative_slot';
 /// The store or affiliation from which this transaction occurred.
 const String _AFFILIATION = 'affiliation';
 
+/// The store id.
+const String _STORE_ID = 'storeId';
+
+/// The store name.
+const String _STORE_NAME = 'storeName';
+
+/// Dining Mode.
+const _DINING_MODE = 'diningMode';
+
 /// The index of an item in a list.
 // const String _INDEX = 'index';
 
@@ -1457,3 +1490,6 @@ const String _CHECKOUT_STEP = 'checkout_step';
 
 /// Some option on a step in an ecommerce flow.
 const String _CHECKOUT_OPTION = 'checkout_option';
+
+/// Event category.
+const String _EVENT_CATEGORY = 'event_category';
